@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Azure Grand Hotel - Luxury Accommodation')
+@section('title', 'Azure Grand Hotel - Book Your Luxury Stay')
 
 @section('content')
 <div class="min-h-screen">
-    <!-- Hero Section -->
+    {{-- Hero Section --}}
     @include('components.hero')
     
-    <!-- About Section -->
+    {{-- About Section --}}
     @include('components.about')
     
-    <!-- Amenities Section -->
+    {{-- Amenities Section --}}
     @include('components.amenities')
     
-    <!-- Rooms Section -->
+    {{-- Rooms Section --}}
     <section id="rooms" class="py-20 px-4 bg-background">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -24,6 +24,41 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @php
+                    $rooms = [
+                        [
+                            'id' => '1',
+                            'name' => 'Standard Room',
+                            'type' => 'Standard',
+                            'price' => 3500,
+                            'capacity' => 2,
+                            'image' => 'images/standard-room.jpg',
+                            'amenities' => ['Free WiFi', 'TV', 'Air Conditioning', 'Work Desk'],
+                            'description' => 'Comfortable room with modern amenities perfect for short stays.'
+                        ],
+                        [
+                            'id' => '2',
+                            'name' => 'Deluxe Room',
+                            'type' => 'Deluxe',
+                            'price' => 5500,
+                            'capacity' => 3,
+                            'image' => 'images/deluxe-room.jpg',
+                            'amenities' => ['Free WiFi', 'TV', 'Air Conditioning', 'City View', 'Mini Bar', 'Room Service'],
+                            'description' => 'Spacious room with premium furnishings and stunning city views.'
+                        ],
+                        [
+                            'id' => '3',
+                            'name' => 'Executive Suite',
+                            'type' => 'Suite',
+                            'price' => 8500,
+                            'capacity' => 4,
+                            'image' => 'images/suite-room.jpg',
+                            'amenities' => ['Free WiFi', 'TV', 'Air Conditioning', 'Panoramic View', 'Living Area', 'Mini Bar', 'Room Service', 'Luxury Bath'],
+                            'description' => 'Luxurious suite with separate living area and premium amenities.'
+                        ]
+                    ];
+                @endphp
+                
                 @foreach($rooms as $room)
                     @include('components.room-card', ['room' => $room])
                 @endforeach
@@ -31,17 +66,22 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    {{-- Contact Section --}}
     @include('components.contact')
-
-    <!-- Booking Modal -->
-    @include('components.booking-modal')
 </div>
 @endsection
 
 @push('scripts')
 <script>
-    // Pass rooms data to JavaScript
-    window.roomsData = @json($rooms);
+    // Smooth scroll to sections
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
 </script>
 @endpush

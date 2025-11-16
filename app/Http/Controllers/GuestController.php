@@ -45,7 +45,7 @@ class GuestController extends Controller
             ]
         ];
 
-        return view('pages.index-new', compact('rooms'));
+        return view('pages.index', compact('rooms'));
     }
 
     /**

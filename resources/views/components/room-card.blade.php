@@ -1,44 +1,48 @@
-<div class="bg-card overflow-hidden rounded-lg shadow-md border border-border/50 hover:shadow-2xl transition-all duration-300">
+{{-- Room Card Component --}}
+@props(['room'])
+
+<div class="overflow-hidden hover:shadow-2xl transition-all duration-300 border-border/50 bg-card border rounded-lg">
     <div class="relative h-64 overflow-hidden">
         <img 
-            src="{{ $room->image ?? asset('images/rooms/' . Str::slug($room->name) . '.jpg') }}" 
-            alt="{{ $room->name }}"
+            src="{{ asset($room['image']) }}" 
+            alt="{{ $room['name'] }}"
             class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
         />
-        <div class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-            {{ $room->type }}
+        <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-sm font-semibold
+            @if($room['type'] === 'Standard') bg-blue-500 text-white
+            @elseif($room['type'] === 'Deluxe') bg-purple-500 text-white
+            @elseif($room['type'] === 'Suite') bg-amber-500 text-white
+            @else bg-gray-500 text-white
+            @endif">
+            {{ $room['type'] }}
         </div>
     </div>
     
     <div class="p-6">
-        <h3 class="text-2xl font-bold mb-2">{{ $room->name }}</h3>
-        <div class="flex items-center gap-2 text-base text-muted-foreground mb-4">
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            Up to {{ $room->capacity }} guests
-        </div>
+        <h3 class="text-2xl font-bold mb-2">{{ $room['name'] }}</h3>
+        <p class="flex items-center gap-2 text-base text-muted-foreground mb-4">
+            <i data-lucide="users" class="h-4 w-4"></i>
+            Up to {{ $room['capacity'] }} guests
+        </p>
         
-        <p class="text-muted-foreground mb-4">{{ $room->description }}</p>
+        <p class="text-muted-foreground mb-4">{{ $room['description'] }}</p>
         
         <div class="flex flex-wrap gap-2 mb-4">
-            @foreach($room->amenities as $index => $amenity)
-                @if($index < 4)
-                <span class="bg-muted text-muted-foreground px-3 py-1 rounded-full text-sm">
+            @foreach(array_slice($room['amenities'], 0, 4) as $amenity)
+                <span class="px-3 py-1 rounded-full text-sm font-medium text-gray-800" style="background-color: #C8D5E1;">
                     {{ $amenity }}
                 </span>
-                @endif
             @endforeach
         </div>
         
         <div class="text-3xl font-bold text-primary mb-4">
-            ₱{{ number_format($room->price) }}
+            ₱{{ number_format($room['price']) }}
             <span class="text-base font-normal text-muted-foreground"> / night</span>
         </div>
         
         <button 
-            onclick="openBookingModal({{ $room->id }})"
-            class="w-full bg-secondary hover:bg-secondary/90 text-white font-semibold py-3 rounded-lg shadow-md transition-all hover:shadow-lg hover:scale-105"
+            onclick="openBookingModal({{ json_encode($room) }})"
+            class="w-full inline-flex items-center justify-center rounded-md text-lg px-4 py-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
         >
             Book Now
         </button>
