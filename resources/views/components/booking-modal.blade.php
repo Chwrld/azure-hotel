@@ -136,18 +136,33 @@
             </div>
 
             {{-- GCash Input --}}
-            <div id="gcashInput" class="space-y-2">
-                <label for="gcashNumber" class="text-sm font-medium">GCash Number</label>
-                <input 
-                    type="tel" 
-                    id="gcashNumber" 
-                    name="gcash_number"
-                    placeholder="+63 912 345 6789" 
-                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
-                />
-                <p class="text-xs text-gray-600 dark:text-gray-400">
-                    Enter your GCash mobile number to complete the payment
-                </p>
+            <div id="gcashInput" class="space-y-4">
+                {{-- QR Code Section --}}
+                <div class="bg-white border-2 border-blue-200 rounded-lg p-6 text-center">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Scan GCash QR Code</h3>
+                    <div class="flex justify-center mb-4">
+                        <img src="{{ asset('images/gcash-qr.png') }}" alt="GCash QR Code" class="w-64 h-64 border-4 border-gray-200 rounded-lg shadow-lg">
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded-md mb-3">
+                        <p class="text-sm font-medium text-gray-700">Scan this QR code using your GCash app</p>
+                        <p class="text-xs text-gray-600 mt-1">Enter the total amount shown above</p>
+                    </div>
+                </div>
+
+                {{-- GCash Number Input --}}
+                <div class="space-y-2">
+                    <label for="gcashNumber" class="text-sm font-medium">Your GCash Number (for confirmation)</label>
+                    <input 
+                        type="tel" 
+                        id="gcashNumber" 
+                        name="gcash_number"
+                        placeholder="+63 912 345 6789" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary"
+                    />
+                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                        Enter your GCash number used for payment verification
+                    </p>
+                </div>
             </div>
 
             {{-- Cash Input --}}

@@ -7,7 +7,7 @@
                     Welcome to Azure Grand Hotel
                 </h2>
                 <p class="text-lg text-muted-foreground leading-relaxed">
-                    Experience unparalleled luxury in the heart of the city. Since 2009, Azure Grand Hotel 
+                    Experience unparalleled luxury in the heart of the city. Azure Grand Hotel 
                     has been setting the standard for excellence in hospitality, combining timeless elegance 
                     with modern amenities.
                 </p>
@@ -21,10 +21,10 @@
             <div class="grid grid-cols-2 gap-6">
                 @php
                     $stats = [
-                        ['icon' => 'building-2', 'label' => 'Luxury Rooms', 'value' => '150+'],
+                        ['icon' => 'building-2', 'label' => 'Luxury Rooms', 'value' => '10+'],
                         ['icon' => 'award', 'label' => 'Awards Won', 'value' => '25+'],
                         ['icon' => 'users', 'label' => 'Happy Guests', 'value' => '10K+'],
-                        ['icon' => 'clock', 'label' => 'Years Experience', 'value' => '15+'],
+                        ['icon' => 'clock', 'label' => 'Years Experience', 'value' => '5+'],
                     ];
                 @endphp
                 @foreach($stats as $stat)
