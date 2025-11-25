@@ -1,3 +1,142 @@
+{{-- Available Rooms Modal --}}
+<div id="availableRoomsModal" class="hidden fixed inset-0 z-50 bg-black/80" onclick="closeAvailableRoomsModalOnBackdrop(event)">
+    <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl bg-white rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 id="availableRoomsTitle" class="text-2xl font-bold">Available Rooms</h2>
+                <p class="text-sm text-gray-600 mt-1">Select a room to proceed with booking</p>
+            </div>
+            <button onclick="closeAvailableRoomsModal()" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="availableRoomsList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {{-- Available rooms will be populated here --}}
+        </div>
+    </div>
+</div>
+
+{{-- Confirmation Ticket Modal --}}
+<div id="confirmationModal" class="hidden fixed inset-0 z-50 bg-black/80" onclick="closeConfirmationModalOnBackdrop(event)">
+    <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden max-h-[95vh] overflow-y-auto" onclick="event.stopPropagation()">
+        {{-- Ticket Content --}}
+        <div id="ticketContent" class="bg-gradient-to-br from-blue-50 to-white p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {{-- Left Column --}}
+                <div>
+                    {{-- Hotel Header --}}
+                    <div class="text-center mb-6 pb-6 border-b-2 border-dashed border-blue-300">
+                        <h1 class="text-3xl font-bold text-blue-900 mb-2">Azure Grand Hotel</h1>
+                        <p class="text-sm text-gray-600">Booking Confirmation</p>
+                        <div class="mt-3 inline-block bg-green-100 text-green-800 px-4 py-1 rounded-full text-sm font-semibold">
+                            ✓ CONFIRMED
+                        </div>
+                    </div>
+
+                    {{-- Booking Reference --}}
+                    <div class="bg-white rounded-lg p-4 mb-6 shadow-sm border border-blue-100">
+                        <p class="text-xs text-gray-500 mb-1">Booking Reference</p>
+                        <p id="ticketBookingId" class="text-2xl font-bold text-blue-900 tracking-wide">BOOK-XXXXXX</p>
+                    </div>
+
+                    {{-- Guest Details --}}
+                    <div class="space-y-3 mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Guest Information</h3>
+                        <div class="flex justify-between items-start">
+                            <span class="text-sm text-gray-600">Guest Name:</span>
+                            <span id="ticketGuestName" class="text-sm font-semibold text-gray-900 text-right">-</span>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-sm text-gray-600">Email:</span>
+                            <span id="ticketGuestEmail" class="text-sm font-semibold text-gray-900 text-right">-</span>
+                        </div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-sm text-gray-600">Phone:</span>
+                            <span id="ticketGuestPhone" class="text-sm font-semibold text-gray-900 text-right">-</span>
+                        </div>
+                    </div>
+
+                    {{-- Room Details --}}
+                    <div class="bg-blue-900 text-white rounded-lg p-4">
+                        <p class="text-xs text-blue-200 mb-2">Room Details</p>
+                        <p id="ticketRoomName" class="text-lg font-bold mb-1">-</p>
+                        <p id="ticketRoomNumber" class="text-sm text-blue-200">-</p>
+                    </div>
+                </div>
+
+                {{-- Right Column --}}
+                <div>
+                    {{-- Stay Details --}}
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Stay Period</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white rounded-lg p-4 shadow-sm border border-blue-100">
+                                <p class="text-xs text-gray-500 mb-1">Check-in</p>
+                                <p id="ticketCheckIn" class="text-sm font-bold text-gray-900">-</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm border border-blue-100">
+                                <p class="text-xs text-gray-500 mb-1">Check-out</p>
+                                <p id="ticketCheckOut" class="text-sm font-bold text-gray-900">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Payment Details --}}
+                    <div class="bg-white rounded-lg p-4 mb-6 shadow-sm border border-blue-100">
+                        <h3 class="font-semibold text-gray-900 mb-3">Payment Summary</h3>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-600">Nights:</span>
+                            <span id="ticketNights" class="text-sm font-semibold text-gray-900">-</span>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-600">Payment Method:</span>
+                            <span id="ticketPaymentMethod" class="text-sm font-semibold text-gray-900">-</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t border-gray-200">
+                            <span class="text-base font-bold text-gray-900">Total Amount:</span>
+                            <span id="ticketTotalAmount" class="text-xl font-bold text-blue-900">-</span>
+                        </div>
+                    </div>
+
+                    {{-- Payment Instructions --}}
+                    <div id="ticketPaymentInstructions" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                        <p class="text-xs font-semibold text-yellow-800 mb-2">📱 Payment Instructions:</p>
+                        <p class="text-xs text-yellow-900" id="ticketInstructionText">-</p>
+                    </div>
+
+                    {{-- Footer --}}
+                    <div class="text-center pt-6 border-t-2 border-dashed border-blue-300">
+                        <p class="text-xs text-gray-500 mb-2">Please present this confirmation upon check-in</p>
+                        <p class="text-xs text-gray-400">Thank you for choosing Azure Grand Hotel!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Action Buttons --}}
+        <div class="bg-gray-50 p-4 flex gap-3">
+            <button 
+                onclick="screenshotTicket()"
+                class="flex-1 inline-flex items-center justify-center gap-2 rounded-md px-4 py-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors font-medium"
+            >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Screenshot
+            </button>
+            <button 
+                onclick="closeConfirmationModal()"
+                class="flex-1 inline-flex items-center justify-center rounded-md px-4 py-3 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 transition-colors font-medium"
+            >
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
 {{-- Booking Modal Component --}}
 <div id="bookingModal" class="hidden fixed inset-0 z-50 bg-black/80" onclick="closeBookingModalOnBackdrop(event)">
     <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg bg-white rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
@@ -215,10 +354,102 @@
 let currentRoom = null;
 let totalPrice = 0;
 
+// Available Rooms Modal Functions
+function showAvailableRooms(roomType) {
+    // Sample data - replace with actual available rooms from your database
+    const availableRooms = {
+        'Standard': [
+            { id: 101, number: '101', floor: 1, view: 'City View', status: 'available' },
+            { id: 102, number: '102', floor: 1, view: 'Garden View', status: 'available' },
+            { id: 103, number: '103', floor: 1, view: 'City View', status: 'available' },
+            { id: 201, number: '201', floor: 2, view: 'Pool View', status: 'available' },
+        ],
+        'Deluxe': [
+            { id: 301, number: '301', floor: 3, view: 'Ocean View', status: 'available' },
+            { id: 302, number: '302', floor: 3, view: 'Ocean View', status: 'available' },
+            { id: 303, number: '303', floor: 3, view: 'City View', status: 'available' },
+        ],
+        'Suite': [
+            { id: 401, number: '401', floor: 4, view: 'Panoramic Ocean View', status: 'available' },
+            { id: 402, number: '402', floor: 4, view: 'Panoramic City View', status: 'available' },
+        ]
+    };
+
+    const rooms = availableRooms[roomType.type] || [];
+    
+    document.getElementById('availableRoomsTitle').textContent = `Available ${roomType.type} Rooms`;
+    
+    const roomsList = document.getElementById('availableRoomsList');
+    roomsList.innerHTML = '';
+    
+    if (rooms.length === 0) {
+        roomsList.innerHTML = '<p class="text-center text-gray-500 col-span-2">No rooms available at the moment.</p>';
+    } else {
+        rooms.forEach(room => {
+            const roomCard = `
+                <div class="border rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer bg-white" onclick='selectRoom(${JSON.stringify(roomType)}, ${JSON.stringify(room)})'>
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xl font-bold">Room ${room.number}</h3>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">Available</span>
+                    </div>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            Floor ${room.floor}
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            ${room.view}
+                        </p>
+                        <p class="text-lg font-bold text-blue-600 mt-3">₱${roomType.price.toLocaleString()} / night</p>
+                    </div>
+                </div>
+            `;
+            roomsList.innerHTML += roomCard;
+        });
+    }
+    
+    document.getElementById('availableRoomsModal').classList.remove('hidden');
+}
+
+function selectRoom(roomType, specificRoom) {
+    // Combine room type info with specific room details
+    const fullRoomInfo = {
+        ...roomType,
+        roomNumber: specificRoom.number,
+        floor: specificRoom.floor,
+        view: specificRoom.view,
+        roomId: specificRoom.id
+    };
+    
+    closeAvailableRoomsModal();
+    openBookingModal(fullRoomInfo);
+}
+
+function closeAvailableRoomsModal() {
+    document.getElementById('availableRoomsModal').classList.add('hidden');
+}
+
+function closeAvailableRoomsModalOnBackdrop(event) {
+    if (event.target.id === 'availableRoomsModal') {
+        closeAvailableRoomsModal();
+    }
+}
+
 function openBookingModal(room) {
     currentRoom = room;
     document.getElementById('bookingModal').classList.remove('hidden');
-    document.getElementById('modalDescription').textContent = `Complete your reservation for ${room.name}`;
+    
+    const roomDescription = room.roomNumber 
+        ? `Complete your reservation for ${room.name} - Room ${room.roomNumber} (${room.view})`
+        : `Complete your reservation for ${room.name}`;
+    
+    document.getElementById('modalDescription').textContent = roomDescription;
     document.getElementById('roomRate').textContent = `₱${room.price.toLocaleString()}`;
 }
 
@@ -353,13 +584,76 @@ function confirmPayment() {
         }
     }
     
-    // Submit booking
-    const message = paymentMethod === 'gcash' 
-        ? 'Booking confirmed! You will receive a GCash payment request shortly.'
-        : `Booking confirmed! Please prepare ₱${parseFloat(document.getElementById('cashAmount').value).toLocaleString()} for payment upon check-in.`;
+    // Generate booking ID
+    const bookingId = 'BOOK-' + Math.random().toString(36).substr(2, 6).toUpperCase();
     
-    alert(message);
+    // Get form data
+    const checkIn = document.getElementById('checkInDate').value;
+    const checkOut = document.getElementById('checkOutDate').value;
+    const name = document.getElementById('guestName').value;
+    const email = document.getElementById('guestEmail').value;
+    const phone = document.getElementById('guestPhone').value;
+    const nights = calculateNights();
+    
+    // Populate ticket
+    document.getElementById('ticketBookingId').textContent = bookingId;
+    document.getElementById('ticketGuestName').textContent = name;
+    document.getElementById('ticketGuestEmail').textContent = email;
+    document.getElementById('ticketGuestPhone').textContent = phone;
+    document.getElementById('ticketRoomName').textContent = currentRoom.name;
+    
+    const roomNumberText = currentRoom.roomNumber 
+        ? `Room ${currentRoom.roomNumber} • ${currentRoom.view}`
+        : 'Room assignment upon check-in';
+    document.getElementById('ticketRoomNumber').textContent = roomNumberText;
+    
+    document.getElementById('ticketCheckIn').textContent = new Date(checkIn).toLocaleDateString('en-US', { 
+        month: 'short', day: 'numeric', year: 'numeric' 
+    });
+    document.getElementById('ticketCheckOut').textContent = new Date(checkOut).toLocaleDateString('en-US', { 
+        month: 'short', day: 'numeric', year: 'numeric' 
+    });
+    document.getElementById('ticketNights').textContent = `${nights} night${nights > 1 ? 's' : ''}`;
+    document.getElementById('ticketPaymentMethod').textContent = paymentMethod === 'gcash' ? 'GCash' : 'Cash';
+    document.getElementById('ticketTotalAmount').textContent = `₱${totalPrice.toLocaleString()}`;
+    
+    // Payment instructions
+    const instructionText = paymentMethod === 'gcash'
+        ? `Please scan the QR code above and pay ₱${totalPrice.toLocaleString()} via GCash. Your booking will be confirmed once payment is received.`
+        : `Please prepare ₱${totalPrice.toLocaleString()} in cash for payment upon check-in.`;
+    document.getElementById('ticketInstructionText').textContent = instructionText;
+    
+    // Close booking modal and show confirmation
     closeBookingModal();
+    showConfirmationModal();
+}
+
+function showConfirmationModal() {
+    document.getElementById('confirmationModal').classList.remove('hidden');
+}
+
+function closeConfirmationModal() {
+    document.getElementById('confirmationModal').classList.add('hidden');
+}
+
+function closeConfirmationModalOnBackdrop(event) {
+    if (event.target.id === 'confirmationModal') {
+        closeConfirmationModal();
+    }
+}
+
+function screenshotTicket() {
+    // Create instruction for user
+    alert('📸 Screenshot Instructions:\n\n' +
+          '1. This window will close\n' +
+          '2. Take a screenshot of the ticket\n' +
+          '   • Windows: Press Windows Key + Shift + S\n' +
+          '   • Or use Snipping Tool\n' +
+          '3. Save the screenshot for your records\n\n' +
+          'Present this confirmation at check-in!');
+    
+    // Optional: Use html2canvas library if you want automatic screenshot
+    // For now, we'll just keep the modal open for manual screenshot
 }
 </script>
 @endpush

@@ -41,7 +41,7 @@
         </div>
         
         <button 
-            onclick="openBookingModal({{ json_encode($room) }})"
+            onclick="showAvailableRooms({{ json_encode($room) }})"
             class="w-full inline-flex items-center justify-center rounded-md text-lg px-4 py-3 bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
         >
             Book Now
